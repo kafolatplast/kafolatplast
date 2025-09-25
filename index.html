@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>KAFOLAT PLAST — Каталог продукции</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: white;
+      color: #333;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      color: #e60023;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Логотип */
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-img {
+      height: 60px;
+      width: auto;
+    }
+    .logo-red {
+      color: #e60023;
+    }
+    .logo-box {
+      background: #e60023;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Меню */
+    .menu {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .menu a {
+      color: #e60023;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .menu a:hover {
+      color: #ff4d6d;
+    }
+
+    /* Поле поиска */
+    #search {
+      padding: 6px 12px;
+      border: 2px solid #e60023;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.3s;
+    }
+    #search:focus {
+      border-color: #ff4d6d;
+      box-shadow: 0 0 5px rgba(230,0,35,0.5);
+    }
+
+    /* Навигация */
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 25px auto;
+      flex-wrap: wrap;
+      max-width: 1000px;
+    }
+    .nav button {
+  padding: 10px 16px;
+  border: 2px solid #e60023; /* ← рамка всегда есть */
+  background: #e60023;
+  color: white;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.nav button:hover {
+  background: white;
+  color: #e60023;
+}
+    /* Сетка карточек */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      justify-items: center;
+      padding: 0 30px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      width: 100%;
+      max-width: 320px;
+      height: 380px;
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .card img {
+      max-width: 280px;
+      max-height: 280px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+    .card h3 {
+      margin: 0 0 5px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #e60023;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 3px 0;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 25px rgba(230,0,35,0.25);
+    }
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Подсветка поиска */
+    mark {
+      background: yellow;
+      color: black;
+      padding: 0 2px;
+      border-radius: 3px;
+    }
+
+    /* Модалка */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 900px;
+      width: 95%;
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal-content img {
+      max-width: 100%;
+      max-height: 500px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+      cursor: zoom-in;
+    }
+    .modal-content img.zoomed {
+      transform: scale(2);
+      cursor: zoom-out;
+    }
+    .modal-content h2 {
+      margin: 10px 0;
+      color: #e60023;
+    }
+    .modal-content p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #e60023;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Футер */
+    footer {
+      text-align: center;
+      background: #e60023;
+      color: white;
+      padding: 20px;
+      font-size: 0.9rem;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="images/logo.png" alt="Логотип" class="logo-img">    
+      <span class="logo-red">KAFOLAT</span>
+      <span class="logo-box">PLAST</span>
+    </div>
+    <div class="menu">
+      <a href="#">О НАС</a>
+      <a href="#">КОНТАКТЫ</a>
+      <input type="text" id="search" placeholder="Поиск..." />
+    </div>
+  </header>
+
+  <div class="nav">
+    <button onclick="showCategory('all')">Все</button>
+    <button onclick="showCategory('triggers')">Триггеры</button>
+    <button onclick="showCategory('dispensers')">Дозаторы</button>
+    <button onclick="showCategory('sprayers')">Спрейеры</button>
+    <button onclick="showCategory('caps')">Крышки</button>
+    <button onclick="showCategory('pet')">ПЭТ флаконы</button>
+    <button onclick="showCategory('pe')">Полиэтиленовые</button>
+    <button onclick="showCategory('pp')">Полипропиленовые</button>
+  </div>
+
+  <div id="catalog" class="grid"></div>
+
+  <footer>
+    © Компания OOO «TOSHKENT TUZ» — каталог образец.  
+    Нажмите на товар для подробностей и отправки заявки.
+  </footer>
+
+  <!-- Модальное окно -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <img id="modal-img" src="" alt="">
+      <h2 id="modal-title"></h2>
+      <p id="modal-info"></p>
+    </div>
+  </div>
+
+  <script>
+    const categories = {
+      triggers: Array.from({length: 10}, (_, i) => ({
+        name: `Триггер ${i+1}`,
+        img: `images/trigger${i+1}.png`,
+        info: "Резьба 28/410 • Цвет: белый • Материал: PP"
+      })),
+      dispensers: Array.from({length: 10}, (_, i) => ({
+        name: `Дозатор ${i+1}`,
+        img: `images/dispenser${i+1}.png`,
+        info: "Размер 24/410 • Цвет: черный • Материал: PP"
+      })),
+      sprayers: Array.from({length: 10}, (_, i) => ({
+        name: `Спрейер ${i+1}`,
+        img: `images/sprayer${i+1}.png`,
+        info: "Длина трубки 180мм • Цвет: прозрачный"
+      })),
+      caps: Array.from({length: 10}, (_, i) => ({
+        name: `Крышка ${i+1}`,
+        img: `images/cap${i+1}.png`,
+        info: i % 2 === 0 ? "Флип-топ • Резьба 28/410" : "Винтовая • Резьба 24/410"
+      })),
+      pet: Array.from({length: 10}, (_, i) => ({
+        name: `ПЭТ флакон ${i+1}`,
+        img: `images/pet${i+1}.png`,
+        info: `${(i+1)*100} мл • Прозрачный • Легкий вес`
+      })),
+      pe: Array.from({length: 10}, (_, i) => ({
+        name: `Полиэтиленовый флакон ${i+1}`,
+        img: `images/pe${i+1}.png`,
+        info: `${(i+1)*50} мл • Цвет: белый • Мягкий пластик`
+      })),
+      pp: Array.from({length: 10}, (_, i) => ({
+        name: `Полипропиленовый флакон ${i+1}`,
+        img: `images/pp${i+1}.png`,
+        info: `${(i+1)*75} мл • Матовый • Ударопрочный`
+      })),
+    };
+
+    function showCategory(cat) {
+      const catalog = document.getElementById('catalog');
+      catalog.innerHTML = '';
+
+      let items = [];
+      if (cat === 'all') {
+        Object.values(categories).forEach(arr => items.push(...arr));
+      } else {
+        items = categories[cat];
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${item.name}</h3>
+          <img src="${item.img}" alt="${item.name}">
+          <p>${item.info}</p>
+        `;
+        card.addEventListener('click', () => {
+          const modalImg = document.getElementById('modal-img');
+          modalImg.src = item.img;
+          modalImg.classList.remove('zoomed');
+          document.getElementById('modal-title').textContent = item.name;
+          document.getElementById('modal-info').textContent = item.info;
+          document.getElementById('modal').style.display = 'flex';
+        });
+        catalog.appendChild(card);
+      });
+    }
+
+    // закрытие модалки
+    document.querySelector('.close').onclick = () => {
+      document.getElementById('modal').style.display = 'none';
+    };
+    window.onclick = (e) => {
+      if (e.target.id === 'modal') {
+        document.getElementById('modal').style.display = 'none';
+      }
+    };
+
+    // Zoom эффект
+    const modalImg = document.getElementById('modal-img');
+    modalImg.addEventListener('click', () => {
+      modalImg.classList.toggle('zoomed');
+    });
+
+    // Подсветка поиска
+    function highlight(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    // Поиск по товарам
+    document.getElementById('search').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const titleEl = card.querySelector('h3');
+        const infoEl = card.querySelector('p');
+        const title = titleEl.textContent;
+        const info = infoEl.textContent;
+
+        if (title.toLowerCase().includes(query) || info.toLowerCase().includes(query)) {
+          card.style.display = 'flex';
+          titleEl.innerHTML = highlight(title, query);
+          infoEl.innerHTML = highlight(info, query);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+
+    // По умолчанию показываем все
+    showCategory('all');
+  </script>
+</body>
+</html>
